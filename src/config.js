@@ -3,3 +3,7 @@ const leancloud = {
     appKey: "",
     restAPI: ""
 };
+
+export {
+    leancloud,
+};
