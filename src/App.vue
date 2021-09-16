@@ -1,11 +1,15 @@
 <template lang="pug">
 #container
-  twitter-nav/
+  twitter-nav(
+    :navItems="navItems"
+    :options="options"
+  )
   router-view#main
   twitter-sidebar/
 </template>
 
 <script setup>
+import { computed } from 'vue'
 import { useStore } from 'vuex'
 import {
   GET_NAVIGATION,
@@ -18,6 +22,8 @@ import twitterSidebar from './components/sidebar/index.vue';
 const store = useStore();
 store.dispatch(GET_NAVIGATION);
 store.dispatch(GET_OPTIONS);
+const navItems = computed(() => store.state.navigation);
+const options = computed(() => store.state.option);
 
 </script>
 

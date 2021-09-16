@@ -7,21 +7,18 @@ div#left
     )
   .twitter-nav-list
     twitter-nav-list(
-      v-for="item in items"
+      v-for="item in navItems"
       :key="item.get('objectId')"
       :item="item"
     )/
 </template>
 
 <script setup>
-import { useStore } from 'vuex'
-import { computed, watch } from 'vue';
+
+import {defineProps} from 'vue';
+const props = defineProps(['navItems', 'options']);
 
 import twitterNavList from './list.vue';
-
-const store = useStore();
-const items = computed(() => store.state.navigation);
-const options = computed(() => store.state.option);
 
 </script>
 
