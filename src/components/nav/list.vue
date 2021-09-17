@@ -1,15 +1,12 @@
 <template lang="pug">
+//- 导航列表（单个）
 //- 相同的代码放一起
 //- 如果type为link用a标签输出，如果为route就用router-link标签输出
 mixin sameCode(item)
   .nav-link-item
-    svg(
-      class="icon"
-      aria-hidden="true"
+    twitterIcon(
+      :icon="item.get('icon') ? item.get('icon') : 'link'"
     )
-      use(
-        :xlink:href="`#icon-${item.get('icon') ? item.get('icon') : 'link'}`"
-      )
     span {{ item.get('title') }}
 
 a(
@@ -29,10 +26,10 @@ router-link(
 
 </template>
 
-<script>
-export default {
-  props: ['item'],
-}
+<script setup>
+import twitterIcon from '../icon.vue'; // 图标组件
+import { defineProps } from 'vue';
+const props = defineProps(['item']);
 </script>
 
 <style lang="less" scoped>
@@ -61,12 +58,5 @@ export default {
       color: var(--themeColor);
       background-color: var(--themeColorOp);
     }
-  }
-  .icon {
-    width: 1em;
-    height: 1em;
-    vertical-align: -0.15em;
-    fill: currentColor;
-    overflow: hidden;
   }
 </style>

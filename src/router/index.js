@@ -1,21 +1,20 @@
 import { createRouter, createWebHashHistory } from 'vue-router';
 import Home from '../pages/Home.vue';
 import Post from '../pages/Post.vue';
+import Admin from '../pages/Admin.vue';
 
 const routes = [
   {
     path: '/',
-    component: Home,
-    meta: {
-      title: '主页'
-    }
+    component: Home
   },
   {
     path: '/post/:id',
-    component: Post,
-    meta: {
-      title: '正文'
-    }
+    component: Post
+  },
+  {
+    path: '/admin',
+    component: Admin
   }
 ];
 

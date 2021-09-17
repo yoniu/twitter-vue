@@ -1,4 +1,5 @@
 <template lang="pug">
+//- 导航组件
 div#left
   router-link.twitter-nav-avatar(to="/")
     img(
@@ -11,15 +12,15 @@ div#left
       :key="item.get('objectId')"
       :item="item"
     )/
+  twitter-admin-button
 </template>
 
 <script setup>
+import twitterNavList from './list.vue'; // 导航列表组件
+import twitterAdminButton from './button.vue'; // 导航列表组件
 
-import {defineProps} from 'vue';
+import { defineProps } from 'vue';
 const props = defineProps(['navItems', 'options']);
-
-import twitterNavList from './list.vue';
-
 </script>
 
 <style lang="less" scoped>

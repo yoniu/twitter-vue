@@ -6,24 +6,37 @@
   )
   router-view#main
   twitter-sidebar/
+twitterLoading(
+  :class="{ hide: loaded }"
+)
 </template>
 
 <script setup>
-import { computed } from 'vue'
+import { computed, watch, ref } from 'vue'
 import { useStore } from 'vuex'
 import {
   GET_NAVIGATION,
   GET_OPTIONS
-} from './store/actionType'
+} from './store/actionType' // VueX的Action名
 
-import twitterNav from './components/nav/index.vue';
-import twitterSidebar from './components/sidebar/index.vue';
+import twitterNav from './components/nav/index.vue' // 导航组件
+import twitterSidebar from './components/sidebar/index.vue' // 侧栏组件
 
+import twitterLoading from './components/loading.vue' // 页面加载遮罩组件
+
+// VueX获取数据
 const store = useStore();
 store.dispatch(GET_NAVIGATION);
 store.dispatch(GET_OPTIONS);
 const navItems = computed(() => store.state.navigation);
 const options = computed(() => store.state.option);
+
+// 判断数据是否加载完毕
+const loaded = ref(false);
+watch([navItems, options], ([NavItems, Options])=>{
+  if(Options === undefined || NavItems === undefined) return;
+  if(Object.keys(Options).length>0 && NavItems.length>0) loaded.value = true;
+});
 
 </script>
 
@@ -41,6 +54,11 @@ const options = computed(() => store.state.option);
     --contentColor: #324b64;
     --contentBackground: rgb(245,248,250);
     --contentColor2: rgb(101,119,134);
+  }
+  *, *::before, *::after{
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
   }
   body{
     background: var(--bgColor);
