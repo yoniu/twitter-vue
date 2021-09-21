@@ -28,7 +28,7 @@ router-link(
 
 <script setup>
 import twitterIcon from '../icon.vue'; // 图标组件
-import { defineProps } from 'vue';
+
 const props = defineProps(['item']);
 </script>
 

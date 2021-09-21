@@ -4,4 +4,5 @@ export default () => {
   list: [];
   navigation: [];
   option: [];
+  currentUser: {};
 }

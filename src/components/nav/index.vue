@@ -19,7 +19,6 @@ div#left
 import twitterNavList from './list.vue'; // 导航列表组件
 import twitterAdminButton from './button.vue'; // 导航列表组件
 
-import { defineProps } from 'vue';
 const props = defineProps(['navItems', 'options']);
 </script>
 

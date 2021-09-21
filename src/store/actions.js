@@ -1,4 +1,4 @@
-import { GET_BLOG_LIST, GET_NAVIGATION, GET_OPTIONS } from './actionType'
+import { GET_BLOG_LIST, GET_NAVIGATION, GET_OPTIONS, GET_CURRENT_USER } from './actionType'
 import AV from 'leancloud-storage'
 const { Query, User } = AV
 import { leancloud } from '../config'
@@ -28,15 +28,20 @@ export default {
   async [GET_OPTIONS]({ commit }){
     try{
       const query = new Query('option');
-      let arr = {};
       const result = await query.find();
-      result.forEach((option)=>{
-        arr[option.get('option')] = option.get('value');
-      });
-      commit(GET_OPTIONS, arr);
+      commit(GET_OPTIONS, result);
     }catch(e){
       commit(GET_OPTIONS, []);
     }
-  }
+  },
+
+  async [GET_CURRENT_USER]({ commit }){
+    try{
+      const currentUser = User.current();
+      commit(GET_CURRENT_USER, currentUser);
+    }catch(e){
+      commit(GET_CURRENT_USER, {});
+    }
+  },
 
 }

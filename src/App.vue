@@ -68,12 +68,16 @@ watch([navItems, options], ([NavItems, Options])=>{
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen-Sans, Ubuntu, Cantarell, 'Helvetica Neue', Helvetica, Arial, sans-serif;
     line-height: 1.8;
   }
+  #app{
+    min-height: 100vh;
+  }
   #container{
     width: 100%;
     max-width: 1200px;
     margin: 0 auto;
     display: grid;
     grid-template-columns: 275px 2fr 1fr;
+    min-height: 100vh;
   }
   #main{
     border-left: 1px solid var(--border);
