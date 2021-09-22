@@ -6,29 +6,61 @@
       type="text"
       name="username"
       placeholder="账号"
+      v-model="formData.username"
     )
   .form-item
     input#password(
-      type="text"
+      type="password"
       name="password"
       placeholder="密码"
+      v-model="formData.password"
+      @keyup.enter="login"
     )
   .form-item.button-item
-    button.primary-button 登陆
+    a.primary-button(
+      :class="{ login: pressLoginButton }"
+      @click="login"
+    )
+      twitterIcon(:icon="pressLoginButton ? 'reload' : 'right'")
 </template>
 
-<script>
-import { defineComponent, ref } from 'vue'
-import { useMessage } from 'naive-ui'
+<script setup>
+  import { reactive, ref, computed } from 'vue'
+  import twitterIcon from '../icon.vue' // 图表组件
+  import { useMessage } from 'naive-ui' // Naive UI的信息组件
+  import { useStore } from 'vuex'
+  import { LOGIN } from '../../store/actionType' // VueX的Action名，登陆事件
 
-export default defineComponent({
-  setup () {
-    const formRef = ref(null)
-    return {
-      formRef
+  const store = useStore();
+  const message = useMessage();
+
+  const formData = reactive({
+    username: '',
+    password: ''
+  });
+  const currentUser = computed(() => store.state.currentUser);
+  
+  const pressLoginButton = ref(false);
+  
+  async function login(){
+    if(pressLoginButton.value) return;
+    pressLoginButton.value = !pressLoginButton.value;
+    await store.dispatch(LOGIN, formData);
+    if('err' in currentUser.value){
+      message.info(
+        currentUser.value.err,
+        { closable: true, duration: 5000 }
+      );
+      pressLoginButton.value = !pressLoginButton.value;
+      formData.username = '';
+      formData.password = '';
+    }else{
+      message.info(
+        "登陆成功",
+        { closable: true, duration: 5000 }
+      );
     }
   }
-});
 </script>
 
 <style lang="less" scoped>
@@ -67,6 +99,33 @@ export default defineComponent({
 
     &:hover{
       border-color: var(--themeColor);
+    }
+  }
+  .primary-button{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 48px;
+    height: 48px;
+    background-color: var(--themeColor);
+    color: var(--highLight);
+    border-radius: 50%;
+    cursor: pointer;
+    &:hover{
+      opacity: .8;
+    }
+    &.login{
+      cursor: wait;
+      animation: 3s circle-round infinite linear;
+    }
+  }
+
+  @keyframes circle-round {
+    from {
+      transform: rotate(0deg);
+    }
+    to{
+      transform: rotate(360deg);
     }
   }
 }

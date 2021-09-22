@@ -1,4 +1,10 @@
-import { GET_BLOG_LIST, GET_NAVIGATION, GET_OPTIONS, GET_CURRENT_USER } from './actionType'
+import {
+  GET_BLOG_LIST,
+  GET_NAVIGATION,
+  GET_OPTIONS,
+  GET_CURRENT_USER,
+  LOGIN
+} from './actionType'
 import AV from 'leancloud-storage'
 const { Query, User } = AV
 import { leancloud } from '../config'
@@ -41,6 +47,20 @@ export default {
       commit(GET_CURRENT_USER, currentUser);
     }catch(e){
       commit(GET_CURRENT_USER, {});
+    }
+  },
+
+  async [LOGIN](
+    { commit },
+    ...payload
+  ){
+    const user = username.value;
+    const pwd = password.value;
+    try{
+      const result = await User.logIn(user, pwd);
+      commit(GET_CURRENT_USER, result);
+    }catch(e){
+      commit(GET_CURRENT_USER, { err: e.message });
     }
   },
 

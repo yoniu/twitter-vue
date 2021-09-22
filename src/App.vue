@@ -1,28 +1,28 @@
 <template lang="pug">
-#container
-  twitter-nav(
-    :navItems="navItems"
-    :options="options"
+n-message-provider
+  #container
+    twitter-nav(
+      :navItems="navItems"
+      :options="options"
+    )
+    router-view#main
+    twitter-sidebar/
+  twitterLoading(
+    :class="{ hide: loaded }"
   )
-  router-view#main
-  twitter-sidebar/
-twitterLoading(
-  :class="{ hide: loaded }"
-)
 </template>
 
 <script setup>
 import { computed, watch, ref } from 'vue'
 import { useStore } from 'vuex'
-import {
-  GET_NAVIGATION,
-  GET_OPTIONS
-} from './store/actionType' // VueX的Action名
+import { GET_NAVIGATION, GET_OPTIONS } from './store/actionType' // VueX的Action名，获取导航、配置信息
 
 import twitterNav from './components/nav/index.vue' // 导航组件
 import twitterSidebar from './components/sidebar/index.vue' // 侧栏组件
 
 import twitterLoading from './components/loading.vue' // 页面加载遮罩组件
+
+import { NMessageProvider } from 'naive-ui' // Naive UI的信息组件
 
 // VueX获取数据
 const store = useStore();
