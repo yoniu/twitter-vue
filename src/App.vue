@@ -13,15 +13,12 @@ n-message-provider
 </template>
 
 <script setup>
-import { computed, watch, ref } from 'vue'
+import { computed, watch, watchEffect, ref } from 'vue'
 import { useStore } from 'vuex'
 import { GET_NAVIGATION, GET_OPTIONS } from './store/actionType' // VueX的Action名，获取导航、配置信息
-
 import twitterNav from './components/nav/index.vue' // 导航组件
 import twitterSidebar from './components/sidebar/index.vue' // 侧栏组件
-
 import twitterLoading from './components/loading.vue' // 页面加载遮罩组件
-
 import { NMessageProvider } from 'naive-ui' // Naive UI的信息组件
 
 // VueX获取数据
@@ -36,6 +33,9 @@ const loaded = ref(false);
 watch([navItems, options], ([NavItems, Options])=>{
   if(Options === undefined || NavItems === undefined) return;
   if(Object.keys(Options).length>0 && NavItems.length>0) loaded.value = true;
+});
+watchEffect(() => {
+  if(options.value !== undefined && 'site_name' in options.value) document.title = options.value.site_name;
 });
 
 </script>

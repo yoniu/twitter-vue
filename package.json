@@ -10,6 +10,7 @@
   "dependencies": {
     "@tailwindcss/postcss7-compat": "^2.2.9",
     "autoprefixer": "^9.8.6",
+    "md5-js": "0.0.3",
     "postcss": "^7.0.36",
     "tailwindcss": "npm:@tailwindcss/postcss7-compat@^2.2.9",
     "vue": "^3.2.6",

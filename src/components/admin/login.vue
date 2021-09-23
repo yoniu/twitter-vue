@@ -27,38 +27,29 @@
 <script setup>
   import { reactive, ref, computed } from 'vue'
   import twitterIcon from '../icon.vue' // 图表组件
-  import { useMessage } from 'naive-ui' // Naive UI的信息组件
   import { useStore } from 'vuex'
   import { LOGIN } from '../../store/actionType' // VueX的Action名，登陆事件
 
+  const emit = defineEmits(['show-message']); // 显示消息自定义事件
   const store = useStore();
-  const message = useMessage();
-
   const formData = reactive({
     username: '',
     password: ''
   });
-  const currentUser = computed(() => store.state.currentUser);
-  
   const pressLoginButton = ref(false);
-  
+  const currentUser = computed(() => store.state.currentUser);
+
   async function login(){
     if(pressLoginButton.value) return;
     pressLoginButton.value = !pressLoginButton.value;
     await store.dispatch(LOGIN, formData);
     if('err' in currentUser.value){
-      message.info(
-        currentUser.value.err,
-        { closable: true, duration: 5000 }
-      );
+      emit('show-message', currentUser.value.err);
       pressLoginButton.value = !pressLoginButton.value;
       formData.username = '';
       formData.password = '';
     }else{
-      message.info(
-        "登陆成功",
-        { closable: true, duration: 5000 }
-      );
+      emit('show-message', "登陆成功");
     }
   }
 </script>
@@ -70,7 +61,7 @@
   align-items: center;
   max-width: 300px;
   width: 90%;
-  margin: 0 auto;
+  margin: 2rem auto;
 
   .form-title{
     font-size: 2rem;

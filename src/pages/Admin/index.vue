@@ -4,24 +4,44 @@
     span 后台管理
     a(href="javascript:;")
       icon(icon="thunderbolt")
-  .login(
+  twitter-login(
     v-if="!isLogin"
+    @show-message="showMessage"
   )
-    twitter-login
+  twitter-admin-header(
+    v-if="isLogin"
+    :currentUser="currentUser"
+  )
+  router-view
 </template>
 
 <script setup>
-import icon from '../components/icon.vue' // 图标组件
-import twitterLogin from '../components/admin/login.vue' // 登陆组件
+import icon from '../../components/icon.vue' // 图标组件
+import twitterLogin from '../../components/admin/login.vue' // 登陆组件
+import twitterAdminHeader from '../../components/admin/header.vue' // 头部组件
+import { useMessage } from 'naive-ui' // Naive UI的信息组件
 import { ref, computed, watchEffect } from 'vue'
 import { useStore } from 'vuex'
-import { GET_CURRENT_USER } from '../store/actionType' // VueX的Action名，获取当前登陆用户
+import { GET_CURRENT_USER, LOGOUT } from '../../store/actionType' // VueX的Action名，获取当前登陆用户
 
 const store = useStore();
 store.dispatch(GET_CURRENT_USER); // VueX 获取当前用户
 const currentUser = computed(() => store.state.currentUser); // 当前用户的计算属性
-
 const isLogin = ref(false); // 登陆状态
+const message = useMessage();
+
+function showMessage(text) {
+  // 信息显示
+  message.info(
+    text,
+    { closable: true, duration: 5000 }
+  );
+}
+
+async function loginOut(){
+  store.dispatch(LOGOUT);
+  showMessage('退出成功');
+}
 
 watchEffect(() => {
   // 监听当前登陆用户。

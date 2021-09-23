@@ -3,7 +3,8 @@ import {
   GET_NAVIGATION,
   GET_OPTIONS,
   GET_CURRENT_USER,
-  LOGIN
+  LOGIN,
+  LOGOUT
 } from './actionType'
 import AV from 'leancloud-storage'
 const { Query, User } = AV
@@ -63,5 +64,13 @@ export default {
       commit(GET_CURRENT_USER, { err: e.message });
     }
   },
+  async [LOGOUT]({ commit }){
+    try{
+      await User.logOut();
+      commit(GET_CURRENT_USER, { err: '已退出' });
+    }catch(e){
+      commit(GET_CURRENT_USER, { err: e.message });
+    }
+  }
 
 }
