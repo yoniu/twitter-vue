@@ -25,10 +25,10 @@
 </template>
 
 <script setup>
-  import { reactive, ref, computed } from 'vue'
-  import twitterIcon from '../icon.vue' // 图表组件
-  import { useStore } from 'vuex'
-  import { LOGIN } from '../../store/actionType' // VueX的Action名，登陆事件
+  import { reactive, ref, computed } from 'vue';
+  import twitterIcon from '../icon.vue'; // 图表组件
+  import { useStore } from 'vuex';
+  import { LOGIN } from '../../store/actionType'; // VueX的Action名，登陆事件
 
   const emit = defineEmits(['show-message']); // 显示消息自定义事件
   const store = useStore();

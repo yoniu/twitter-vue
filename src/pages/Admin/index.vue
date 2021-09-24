@@ -8,21 +8,27 @@
     v-if="!isLogin"
     @show-message="showMessage"
   )
-  twitter-admin-header(
+  #twitter-admin(
     v-if="isLogin"
-    :currentUser="currentUser"
   )
-  router-view
+    twitter-admin-header(
+      :currentUser="currentUser"
+    )
+    twitter-admin-navigation(
+      @logout="loginOut"
+    )
+    router-view
 </template>
 
 <script setup>
-import icon from '../../components/icon.vue' // 图标组件
-import twitterLogin from '../../components/admin/login.vue' // 登陆组件
-import twitterAdminHeader from '../../components/admin/header.vue' // 头部组件
-import { useMessage } from 'naive-ui' // Naive UI的信息组件
-import { ref, computed, watchEffect } from 'vue'
-import { useStore } from 'vuex'
-import { GET_CURRENT_USER, LOGOUT } from '../../store/actionType' // VueX的Action名，获取当前登陆用户
+import icon from '../../components/icon.vue'; // 图标组件
+import twitterLogin from '../../components/admin/login.vue'; // 登陆组件
+import twitterAdminHeader from '../../components/admin/header.vue'; // 头部组件
+import twitterAdminNavigation from '../../components/admin/navigation.vue'; // 导航组件
+import { useMessage } from 'naive-ui'; // Naive UI的信息组件
+import { ref, computed, watchEffect } from 'vue';
+import { useStore } from 'vuex';
+import { GET_CURRENT_USER, LOGOUT } from '../../store/actionType'; // VueX的Action名，获取当前登陆用户
 
 const store = useStore();
 store.dispatch(GET_CURRENT_USER); // VueX 获取当前用户

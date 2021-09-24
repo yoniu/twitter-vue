@@ -4,6 +4,10 @@ import Post from '../pages/Post.vue';
 import Admin from '../pages/Admin/index.vue';
 import AdminProfile from '../pages/Admin/profile.vue';
 import AdminPostList from '../pages/Admin/postList.vue';
+import AdminSetting from '../pages/Admin/setting.vue';
+import AdminWrite from '../pages/Admin/write.vue';
+import AdminComment from '../pages/Admin/comment.vue';
+import AdminHome from '../pages/Admin/home.vue';
 
 const routes = [
   {
@@ -19,12 +23,28 @@ const routes = [
     component: Admin,
     children: [
       {
+        path: '',
+        component: AdminHome
+      },
+      {
         path: 'profile',
         component: AdminProfile
       },
       {
+        path: 'setting',
+        component: AdminSetting
+      },
+      {
         path: 'twitterList',
         component: AdminPostList
+      },
+      {
+        path: 'write',
+        component: AdminWrite
+      },
+      {
+        path: 'comment',
+        component: AdminComment
       }
     ]
   }
