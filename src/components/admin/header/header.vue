@@ -21,8 +21,8 @@
 <script setup>
 import md5 from 'md5-js'; // md5JS插件
 import { NTooltip } from 'naive-ui';
-const prop = defineProps(['currentUser']);
 
+const prop = defineProps(['currentUser']);
 const gravatar = () => {
   return `https://cdn.helingqi.com/wavatar/${md5(prop.currentUser.getEmail())}?s=&d=mm&r=g`;
 };

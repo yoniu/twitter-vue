@@ -3,7 +3,7 @@
 div#left
   router-link.twitter-nav-avatar(to="/")
     img(
-      :src="options?.site_icon"
+      :src="options?.site_icon ? options?.site_icon : avatar"
       :alt="options?.site_name"
     )
   .twitter-nav-list
@@ -18,6 +18,7 @@ div#left
 <script setup>
 import twitterNavList from './list.vue'; // 导航列表组件
 import twitterAdminButton from './button.vue'; // 导航列表组件
+import avatar from '../../assets/icon.png'; // 导航列表组件
 
 const props = defineProps(['navItems', 'options']);
 </script>

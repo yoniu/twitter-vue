@@ -26,9 +26,9 @@
 
 <script setup>
   import { reactive, ref, computed } from 'vue';
-  import twitterIcon from '../icon.vue'; // 图表组件
   import { useStore } from 'vuex';
   import { LOGIN } from '../../store/actionType'; // VueX的Action名，登陆事件
+  import twitterIcon from '../icon.vue'; // 图表组件
 
   const emit = defineEmits(['show-message']); // 显示消息自定义事件
   const store = useStore();
@@ -42,6 +42,10 @@
   async function login(){
     if(pressLoginButton.value) return;
     pressLoginButton.value = !pressLoginButton.value;
+    if(formData.username == '' || formData.password == ''){
+      pressLoginButton.value = !pressLoginButton.value;
+      return emit('show-message', '账号密码不能为空');
+    }
     await store.dispatch(LOGIN, formData);
     if('err' in currentUser.value){
       emit('show-message', currentUser.value.err);
