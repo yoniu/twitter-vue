@@ -15,6 +15,8 @@
       twitter-icon(icon="image")
     a(href="javascript:;", title="置顶")
       twitter-icon(icon="pushpin")
+    a(href="javascript:;", title="仅自己可见")
+      twitter-icon(icon="eye-close")
     .push-item
       a.btn-primary(href="javascript:;") 发布
 </template>
@@ -52,7 +54,7 @@ import twitterIcon from '../../components/icon.vue'
   .fast-input{
     display: flex;
     align-items: center;
-
+    margin-left: -.5rem;
     &>a{
       display: flex;
       justify-content: center;
